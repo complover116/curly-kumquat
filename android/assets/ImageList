@@ -1,3 +1,7 @@
 interface/buttons/play
+interface/background
+tiles/floor
+tiles/walltmp
+interface/buttons/play_pressed
 interface/progressbar/progressbarback
 interface/progressbar/progress5

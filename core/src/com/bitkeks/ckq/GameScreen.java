@@ -6,29 +6,46 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Rectangle;
 
 public class GameScreen implements Screen {
+
+	float scrollX;
+	float scrollY;
+	
 	float WIDTH;
 	float HEIGHT;
 	float Xtension;
 		
-	//AndroidButton buttons[] = new AndroidButton[1];
+	AndroidButton buttons[] = new AndroidButton[4];
 	public GameScreen() {
-		//buttons[0] = new AndroidButton(new Rectangle(200, 100, 400, 200));
+		buttons[0] = new AndroidButton(new Rectangle(0, 0, 800, 200));
+		buttons[1] = new AndroidButton(new Rectangle(0, 400, 800, 200));
+		buttons[2] = new AndroidButton(new Rectangle(0, 200, 400, 200));
+		buttons[3] = new AndroidButton(new Rectangle(400, 200, 400, 200));
 	}
 	@Override
 	public void render(float delta) {
 		
 		
-		/*for(int i = 0; i < buttons.length; i ++) {
+		for(int i = 0; i < buttons.length; i ++) {
 			buttons[i].update();
-		}*/
+		}
+		if(buttons[0].isPressed) scrollY += delta*1024;
+		if(buttons[1].isPressed) scrollY -= delta*1024;
+		if(buttons[2].isPressed) scrollX += delta*1024;
+		if(buttons[3].isPressed) scrollX -= delta*1024;
 		//float leftGutter = KumQuat.viewport.getLeftGutterWidth();
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		KumQuat.camera.update();
 		KumQuat.batch.setProjectionMatrix(KumQuat.camera.combined);
 		KumQuat.batch.begin();
 		
-		
+		for(int i = 0; i < GeneratorScreen.maze.tiles.length; i ++)
+			for(int j = 0; j < GeneratorScreen.maze.tiles[0].length; j ++)
+				if(i*64+scrollX>-350&&i*64+scrollX<1150&&j*64+scrollY>-64&&j*64+scrollY<600)
+				if(GeneratorScreen.maze.tiles[i][j] == 0)
+				KumQuat.batch.draw(Resources.getImage("tiles/floor"), i*64+scrollX, j*64+scrollY);
+				else
+				KumQuat.batch.draw(Resources.getImage("tiles/walltmp"), i*64+scrollX, j*64+scrollY);
 		
 		KumQuat.batch.end();
 	}

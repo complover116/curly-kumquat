@@ -9,7 +9,7 @@ public class MainMenuScreen implements Screen {
 	float WIDTH;
 	float HEIGHT;
 	float Xtension;
-		
+	
 	AndroidButton buttons[] = new AndroidButton[1];
 	public MainMenuScreen() {
 		buttons[0] = new AndroidButton(new Rectangle(200, 100, 400, 200));
@@ -26,10 +26,14 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		KumQuat.camera.update();
 		KumQuat.batch.setProjectionMatrix(KumQuat.camera.combined);
-		if(buttons[0].isPressed){
+		if(buttons[0].justReleased){
 			KumQuat.game.setScreen(KumQuat.GS);
 		}
 		KumQuat.batch.begin();
+		KumQuat.batch.draw(Resources.getImage("interface/background"), -350, 0);
+		if(buttons[0].isPressed)
+		KumQuat.batch.draw(Resources.getImage("interface/buttons/play_pressed"), 205, 95);
+		else
 		KumQuat.batch.draw(Resources.getImage("interface/buttons/play"), 200, 100);
 		KumQuat.batch.end();
 	}

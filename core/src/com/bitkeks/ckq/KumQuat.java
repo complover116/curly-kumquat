@@ -21,6 +21,7 @@ public class KumQuat extends Game {
 	
 	public static MainMenuScreen MMS;
 	public static GeneratorScreen GS;
+	public static GameScreen GMS;
 	
 	@Override
 	public void create () {
@@ -31,6 +32,7 @@ public class KumQuat extends Game {
 		batch = new SpriteBatch();
 		MMS = new MainMenuScreen();
 		GS = new GeneratorScreen();
+		GMS = new GameScreen();
 		this.setScreen(MMS);
 		Resources.load();
 		//viewport = new FillViewport();

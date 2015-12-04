@@ -35,9 +35,13 @@ public class GeneratorScreen implements Screen {
 			for(int j = 0; j < maze.cellsX; j ++)
 				grid[i][j] = new Coords(i, j);
 		maze.tiles = new int[maze.cellsX*2 + 1][maze.cellsY*2 + 1];
-		for(int i = 0; i < maze.cellsX+1; i++)
-			for(int j = 0; j < maze.cellsY+1; j++)
-				maze.tiles[i*2][j*2] = 1;
+		for(int i = 0; i < maze.cellsX*2 + 1; i++)
+			for(int j = 0; j < maze.cellsY*2 + 1; j++)
+				maze.tiles[i][j] = 1;
+				
+		for(int i = 0; i < maze.cellsX; i++)
+			for(int j = 0; j < maze.cellsY; j++)
+				maze.tiles[i*2+1][j*2+1] = 0;
 	}
 	public static void tickGenerator() {
 		if(!curCell.visited){
@@ -66,7 +70,10 @@ public class GeneratorScreen implements Screen {
 		if(possiblePaths.size() == 0) {
 			//BACKTRACK
 			if(trace.size() == 0) {
-				KumQuat.game.setScreen(KumQuat.MMS);
+				for(int i = 0; i < maze.cellsX*maze.cellsY/10; i++) {
+					maze.tiles[2*(int)(Math.random()*maze.cellsX) + 1][2*(int)(Math.random()*maze.cellsY) + 1] = 0;
+				}
+				KumQuat.game.setScreen(KumQuat.GMS);
 			} else {
 				curCell = trace.get(trace.size()-1);
 				trace.remove(trace.size()-1);
@@ -77,6 +84,7 @@ public class GeneratorScreen implements Screen {
 			Coords nextCell = possiblePaths.get((int)(possiblePaths.size()*Math.random()));
 			trace.add(curCell);
 			//TODO: DELETE WALL IN MAZE
+			maze.tiles[((curCell.x*2)+2+(nextCell.x*2))/2][((curCell.y*2)+2+(nextCell.y*2))/2] = 0;
 			curCell = nextCell;
 			//Gdx.app.log("Generator", "Going to "+curCell.x+";"+curCell.y);
 		}

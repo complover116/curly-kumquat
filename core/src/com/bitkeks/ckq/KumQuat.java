@@ -12,19 +12,25 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 //import com.badlogic.gdx.graphics.g2d.ShapeRenderer;
 
 public class KumQuat extends Game {
+
+	public static KumQuat game;
 	public static SpriteBatch batch;
 	//ShapeRenderer shapeRenderer;
 	public static Viewport viewport;
 	public static OrthographicCamera camera;
 	
 	public static MainMenuScreen MMS;
+	public static GeneratorScreen GS;
+	
 	@Override
 	public void create () {
+		game = this;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 600);
 		viewport = new ExtendViewport(800, 600, camera);
 		batch = new SpriteBatch();
 		MMS = new MainMenuScreen();
+		GS = new GeneratorScreen();
 		this.setScreen(MMS);
 		Resources.load();
 		//viewport = new FillViewport();

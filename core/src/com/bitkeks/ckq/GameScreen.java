@@ -39,13 +39,22 @@ public class GameScreen implements Screen {
 		KumQuat.batch.setProjectionMatrix(KumQuat.camera.combined);
 		KumQuat.batch.begin();
 		
+		/*byte up = 0;
+		byte right = 0;
+		byte down = 0;
+		byte left = 0;*/
+		
+		
 		for(int i = 0; i < GeneratorScreen.maze.tiles.length; i ++)
 			for(int j = 0; j < GeneratorScreen.maze.tiles[0].length; j ++)
-				if(i*64+scrollX>-350&&i*64+scrollX<1150&&j*64+scrollY>-64&&j*64+scrollY<600)
-				if(GeneratorScreen.maze.tiles[i][j] == 0)
-				KumQuat.batch.draw(Resources.getImage("tiles/floor"), i*64+scrollX, j*64+scrollY);
-				else
-				KumQuat.batch.draw(Resources.getImage("tiles/walltmp"), i*64+scrollX, j*64+scrollY);
+				if(i*32+scrollX>-350&&i*32+scrollX<1150&&j*32+scrollY>-32&&j*32+scrollY<600)
+				{
+					KumQuat.batch.draw(Resources.getImage("tiles/floor-1"), i*32 + scrollX, j*32 + scrollY);
+					if(GeneratorScreen.maze.tiles[i][j] != 0){
+						
+						KumQuat.batch.draw(Resources.getImage("tiles/wall-"+(GeneratorScreen.maze.tiles[i][j]&1)+"-"+((GeneratorScreen.maze.tiles[i][j]&2) == 0 ? 0 : 1 )+"-"+((GeneratorScreen.maze.tiles[i][j]&4) == 0 ? 0 : 1)+"-"+((GeneratorScreen.maze.tiles[i][j]&8) == 0 ? 0 : 1)), i*32+scrollX, j*32+scrollY);
+					}
+				}
 		
 		KumQuat.batch.end();
 	}

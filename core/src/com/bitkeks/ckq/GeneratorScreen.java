@@ -37,11 +37,44 @@ public class GeneratorScreen implements Screen {
 		maze.tiles = new int[maze.cellsX*2 + 1][maze.cellsY*2 + 1];
 		for(int i = 0; i < maze.cellsX*2 + 1; i++)
 			for(int j = 0; j < maze.cellsY*2 + 1; j++)
-				maze.tiles[i][j] = 1;
+				maze.tiles[i][j] = -1;
 				
 		for(int i = 0; i < maze.cellsX; i++)
 			for(int j = 0; j < maze.cellsY; j++)
 				maze.tiles[i*2+1][j*2+1] = 0;
+	}
+	public static void connectTiles() {
+	byte up = 0;
+	byte down = 0;
+	byte left = 0;
+	byte right = 0;
+	
+		for(int i = 0; i < maze.tiles.length; i ++)
+			for(int j = 0; j < maze.tiles[0].length; j ++)
+			if(maze.tiles[i][j] == -1){
+				up = 0;
+				right = 0;
+				down = 0;
+				left = 0;
+				
+				try{
+					if(maze.tiles[i-1][j] != 0)
+						left = 1;
+				} catch(Exception e){}
+				try{
+					if(maze.tiles[i+1][j] != 0)
+						right = 1;
+				} catch(Exception e){}
+				try{
+					if(maze.tiles[i][j-1] != 0)
+						down = 1;
+				} catch(Exception e){}
+				try{
+					if(maze.tiles[i][j+1] != 0)
+						up = 1;
+				} catch(Exception e){}
+				maze.tiles[i][j] = up+right*2+down*4+left*8;
+			}
 	}
 	public static void tickGenerator() {
 		if(!curCell.visited){
@@ -73,6 +106,7 @@ public class GeneratorScreen implements Screen {
 				for(int i = 0; i < maze.cellsX*maze.cellsY/10; i++) {
 					maze.tiles[2*(int)(Math.random()*maze.cellsX) + 1][2*(int)(Math.random()*maze.cellsY) + 1] = 0;
 				}
+				connectTiles();
 				KumQuat.game.setScreen(KumQuat.GMS);
 			} else {
 				curCell = trace.get(trace.size()-1);

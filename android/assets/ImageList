@@ -1,3 +1,4 @@
+ERROR
 interface/buttons/play
 interface/background
 tiles/floor-1
@@ -19,6 +20,22 @@ tiles/wall-0-1-1-1
 tiles/wall-1-0-1-1
 tiles/wall-1-1-0-1
 tiles/wall-1-1-1-1
+tiles/wall-0-0-0-0-bck
+tiles/wall-1-0-0-0-bck
+tiles/wall-0-1-0-0-bck
+tiles/wall-0-0-1-0-bck
+tiles/wall-0-0-0-1-bck
+tiles/wall-1-1-0-0-bck
+tiles/wall-0-1-1-0-bck
+tiles/wall-0-0-1-1-bck
+tiles/wall-1-0-0-1-bck
+tiles/wall-1-0-1-0-bck
+tiles/wall-0-1-0-1-bck
+tiles/wall-1-1-1-0-bck
+tiles/wall-0-1-1-1-bck
+tiles/wall-1-0-1-1-bck
+tiles/wall-1-1-0-1-bck
+tiles/wall-1-1-1-1-bck
 interface/buttons/play_pressed
 interface/progressbar/progressbarback
 interface/progressbar/progress5

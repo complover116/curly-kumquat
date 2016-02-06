@@ -1,26 +1,25 @@
 package com.bitkeks.ckq;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-
-
-import java.util.HashMap;
 
 /**
  * Created by complover116 on 25.05.2015 for QAR-1 Reloaded
  */
 public class Resources {
 	public static HashMap<String, Texture> textures = new HashMap<String, Texture>();
+	public static HashMap<String, Integer> cachedIDs = new HashMap<String, Integer>();
 	public static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 	
 	
 	
-	public static void loadVital() {
+	/*public static void loadVital() {
 		textures.put("splashscreen", new Texture(Gdx.files.internal("img/Logo.png")));
 		textures.put("ERROR", new Texture(Gdx.files.internal("img/ERROR.png")));
-	}
+	}*/
 	public static void load() {
 
 		Gdx.app.log("Resources", "Loading image list...");
@@ -28,25 +27,27 @@ public class Resources {
 
 		String imglist[] = imglistRaw.split("\n");
 		Gdx.app.log("Resources", "Found " + imglist.length + " image declarations");
-
+		int i = 1;
 		for (String imagename : imglist) {
 			imagename = imagename.trim();
 			//MainMenuScreen.loadStep = "Loading " + imagename;
 			try {
 				textures.put(imagename, new Texture(Gdx.files.internal("img/" + imagename + ".png")));
-				Gdx.app.log("Resources", "Loaded " + imagename);
+				Gdx.app.log("Resources", "("+i+"/"+imglist.length+") Loaded " + imagename);
+				
 			} catch (Exception e) {
 				Gdx.app.error("Resources", "Failed loading " + imagename);
-				e.printStackTrace();
+				//e.printStackTrace();
 				//MainMenuScreen.loaded = -1;
 
 				try {
-					Thread.sleep(500);
+					Thread.sleep(50);
 				} catch (InterruptedException e1) {
 
 				}
-				return;
+				//return;
 			}
+			i++;
 		}
 
 		Gdx.app.log("Resources", "Loading sound list...");
@@ -65,10 +66,9 @@ public class Resources {
 			} catch (Exception e) {
 				Gdx.app.error("Resources", "Failed loading " + soundname);
 				//MainMenuScreen.loaded = -1;
-				return;
+				//return;
 			}
 		}
-		Gdx.app.log("Resources", "Loading music...");
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -81,8 +81,9 @@ public class Resources {
 		if (textures.containsKey(name)) {
 			return textures.get(name);
 		}
-		Gdx.app.error("Resources", "");
-		return null;
+		Gdx.app.error("Resources", "Requested missing texture:"+name);
+		textures.put(name, textures.get("ERROR"));
+		return textures.get(name);
 	}
 
 	static void playSound(String name) {

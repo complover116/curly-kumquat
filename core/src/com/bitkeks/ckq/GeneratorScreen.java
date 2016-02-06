@@ -1,10 +1,10 @@
 package com.bitkeks.ckq;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Rectangle;
-import java.util.ArrayList;
 
 public class GeneratorScreen implements Screen {
 	public static Maze maze = new Maze();
@@ -12,6 +12,8 @@ public class GeneratorScreen implements Screen {
 	static int cellsProcessed = 0;
 	static Coords curCell = new Coords(0,0);
 	static Coords grid[][];
+	static boolean brk;
+	
 	static class Coords {
 		int x;
 		int y;
@@ -34,14 +36,15 @@ public class GeneratorScreen implements Screen {
 		for(int i = 0; i < maze.cellsX; i ++)
 			for(int j = 0; j < maze.cellsX; j ++)
 				grid[i][j] = new Coords(i, j);
-		maze.tiles = new int[maze.cellsX*2 + 1][maze.cellsY*2 + 1];
+		maze.tiles = new int[maze.layernum][maze.cellsX*2 + 1][maze.cellsY*2 + 1];
+		maze.caheIDs = new int[maze.layernum];
 		for(int i = 0; i < maze.cellsX*2 + 1; i++)
 			for(int j = 0; j < maze.cellsY*2 + 1; j++)
-				maze.tiles[i][j] = -1;
+				maze.tiles[0][i][j] = -1;
 				
 		for(int i = 0; i < maze.cellsX; i++)
 			for(int j = 0; j < maze.cellsY; j++)
-				maze.tiles[i*2+1][j*2+1] = 0;
+				maze.tiles[0][i*2+1][j*2+1] = 0;
 	}
 	public static void connectTiles() {
 	byte up = 0;
@@ -49,32 +52,81 @@ public class GeneratorScreen implements Screen {
 	byte left = 0;
 	byte right = 0;
 	
-		for(int i = 0; i < maze.tiles.length; i ++)
-			for(int j = 0; j < maze.tiles[0].length; j ++)
-			if(maze.tiles[i][j] == -1){
+		for(int i = 0; i < maze.tiles[0].length; i ++)
+			for(int j = 0; j < maze.tiles[0][0].length; j ++)
+			if(maze.tiles[0][i][j] == -1){
 				up = 0;
 				right = 0;
 				down = 0;
 				left = 0;
 				
 				try{
-					if(maze.tiles[i-1][j] != 0)
+					if(maze.tiles[0][i-1][j] != 0)
 						left = 1;
-				} catch(Exception e){}
+				} catch(ArrayIndexOutOfBoundsException e){}
 				try{
-					if(maze.tiles[i+1][j] != 0)
+					if(maze.tiles[0][i+1][j] != 0)
 						right = 1;
-				} catch(Exception e){}
+				} catch(ArrayIndexOutOfBoundsException e){}
 				try{
-					if(maze.tiles[i][j-1] != 0)
+					if(maze.tiles[0][i][j-1] != 0)
 						down = 1;
-				} catch(Exception e){}
+				} catch(ArrayIndexOutOfBoundsException e){}
 				try{
-					if(maze.tiles[i][j+1] != 0)
+					if(maze.tiles[0][i][j+1] != 0)
 						up = 1;
-				} catch(Exception e){}
-				maze.tiles[i][j] = up+right*2+down*4+left*8;
+				} catch(ArrayIndexOutOfBoundsException e){}
+				maze.tiles[0][i][j] = up+right*2+down*4+left*8;
 			}
+	}
+	public static void cacheLayer(int layer) {
+		byte up = 0;
+		byte down = 0;
+		byte left = 0;
+		byte right = 0;
+		KumQuat.cache.beginCache();
+		for(int i = 0; i < GeneratorScreen.maze.tiles[0].length; i ++){
+			Gdx.app.log("Generator", "Caching layer "+layer +" ("+(i+1)+"/"+GeneratorScreen.maze.tiles[0].length+")");
+			for(int j = 0; j < GeneratorScreen.maze.tiles[0][0].length; j ++)
+				{
+					//KumQuat.cache.getTransformMatrix().setToTranslation(i*32, j*32, 0);
+					KumQuat.cache.add(Resources.getImage("tiles/floor-1"), i*32, j*32);
+					if(GeneratorScreen.maze.tiles[layer][i][j] != 0){
+						
+						up = 0;
+						right = 0;
+						down = 0;
+						left = 0;
+						
+						try{
+							if(maze.tiles[0][i-1][j] != 0)
+								left = 1;
+						} catch(ArrayIndexOutOfBoundsException e){}
+						try{
+							if(maze.tiles[0][i+1][j] != 0)
+								right = 1;
+						} catch(ArrayIndexOutOfBoundsException e){}
+						try{
+							if(maze.tiles[0][i][j-1] != 0)
+								down = 1;
+						} catch(ArrayIndexOutOfBoundsException e){}
+						try{
+							if(maze.tiles[0][i][j+1] != 0)
+								up = 1;
+						} catch(ArrayIndexOutOfBoundsException e){}
+						
+						KumQuat.cache.add(Resources.getImage("tiles/wall-"+up+"-"+right+"-"+down+"-"+left+"-bck"), i*32, j*32);
+					}
+				}
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		maze.caheIDs[layer] = KumQuat.cache.endCache();
 	}
 	public static void tickGenerator() {
 		if(!curCell.visited){
@@ -104,9 +156,15 @@ public class GeneratorScreen implements Screen {
 			//BACKTRACK
 			if(trace.size() == 0) {
 				for(int i = 0; i < maze.cellsX*maze.cellsY/10; i++) {
-					maze.tiles[2*(int)(Math.random()*maze.cellsX) + 1][2*(int)(Math.random()*maze.cellsY) + 1] = 0;
+					maze.tiles[0][2*(int)(Math.random()*maze.cellsX) + 1][2*(int)(Math.random()*maze.cellsY) + 1] = 0;
 				}
-				connectTiles();
+				Gdx.app.log("Generator", "Connecting tiles...");
+				//connectTiles();
+				
+				cacheLayer(0);
+				
+				brk = true;
+				CurGame.maze = maze;
 				KumQuat.game.setScreen(KumQuat.GMS);
 			} else {
 				curCell = trace.get(trace.size()-1);
@@ -117,16 +175,18 @@ public class GeneratorScreen implements Screen {
 		} else {
 			Coords nextCell = possiblePaths.get((int)(possiblePaths.size()*Math.random()));
 			trace.add(curCell);
-			//TODO: DELETE WALL IN MAZE
-			maze.tiles[((curCell.x*2)+2+(nextCell.x*2))/2][((curCell.y*2)+2+(nextCell.y*2))/2] = 0;
+			maze.tiles[0][((curCell.x*2)+2+(nextCell.x*2))/2][((curCell.y*2)+2+(nextCell.y*2))/2] = 0;
 			curCell = nextCell;
 			//Gdx.app.log("Generator", "Going to "+curCell.x+";"+curCell.y);
 		}
 	}
 	@Override
 	public void render(float delta) {
-	for(int i = 0; i < 40; i ++)
+	for(int i = 0; i < 40; i ++){
 		tickGenerator();
+		if(brk){brk = false; break;}
+	}
+		
 		
 		//float leftGutter = KumQuat.viewport.getLeftGutterWidth();
 		Gdx.gl.glClearColor(0, 0, 1, 1);

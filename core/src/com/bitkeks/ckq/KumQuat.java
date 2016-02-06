@@ -1,20 +1,18 @@
 package com.bitkeks.ckq;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.graphics.g2d.SpriteCache;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 //import com.badlogic.gdx.graphics.g2d.ShapeRenderer;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class KumQuat extends Game {
 
 	public static KumQuat game;
 	public static SpriteBatch batch;
+	public static SpriteCache cache;
 	//ShapeRenderer shapeRenderer;
 	public static Viewport viewport;
 	public static OrthographicCamera camera;
@@ -30,6 +28,7 @@ public class KumQuat extends Game {
 		camera.setToOrtho(false, 800, 600);
 		viewport = new ExtendViewport(800, 600, camera);
 		batch = new SpriteBatch();
+		cache = new SpriteCache(20000, false);
 		MMS = new MainMenuScreen();
 		GS = new GeneratorScreen();
 		GMS = new GameScreen();
@@ -42,5 +41,10 @@ public class KumQuat extends Game {
 	@Override
 	public void render() {
 		super.render();
+	}
+	@Override
+	public void dispose () {
+		batch.dispose();
+		cache.dispose();
 	}
 }

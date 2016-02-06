@@ -1,8 +1,11 @@
 package com.bitkeks.ckq;
 
 public class Maze {
-	int cellsX = 40;
-	int cellsY = 40;
+	int cellsX = 30;
+	int cellsY = 30;
+	int layernum = 1;
 	int randomSeed = 1337;
-	int tiles[][];
+	int tiles[][][];
+	int caheIDs[];
+	boolean generated = false;
 }

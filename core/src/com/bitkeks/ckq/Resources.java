@@ -5,12 +5,13 @@ import java.util.HashMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Created by complover116 on 25.05.2015 for QAR-1 Reloaded
  */
 public class Resources {
-	public static HashMap<String, Texture> textures = new HashMap<String, Texture>();
+	public static HashMap<String, TextureRegion> textures = new HashMap<String, TextureRegion>();
 	public static HashMap<String, Integer> cachedIDs = new HashMap<String, Integer>();
 	public static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 	
@@ -32,7 +33,7 @@ public class Resources {
 			imagename = imagename.trim();
 			//MainMenuScreen.loadStep = "Loading " + imagename;
 			try {
-				textures.put(imagename, new Texture(Gdx.files.internal("img/" + imagename + ".png")));
+				textures.put(imagename, new TextureRegion(new Texture(Gdx.files.internal("img/" + imagename + ".png"))));
 				Gdx.app.log("Resources", "("+i+"/"+imglist.length+") Loaded " + imagename);
 				
 			} catch (Exception e) {
@@ -77,7 +78,7 @@ public class Resources {
 		//MainMenuScreen.loaded = 0;
 	}
 
-	public static Texture getImage(String name) {
+	public static TextureRegion getImage(String name) {
 		if (textures.containsKey(name)) {
 			return textures.get(name);
 		}

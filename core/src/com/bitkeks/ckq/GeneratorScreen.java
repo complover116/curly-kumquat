@@ -85,8 +85,9 @@ public class GeneratorScreen implements Screen {
 		byte left = 0;
 		byte right = 0;
 		KumQuat.cache.beginCache();
+		Gdx.app.log("Generator", "Caching layer "+layer);
 		for(int i = 0; i < GeneratorScreen.maze.tiles[0].length; i ++){
-			Gdx.app.log("Generator", "Caching layer "+layer +" ("+(i+1)+"/"+GeneratorScreen.maze.tiles[0].length+")");
+			
 			for(int j = 0; j < GeneratorScreen.maze.tiles[0][0].length; j ++)
 				{
 					//KumQuat.cache.getTransformMatrix().setToTranslation(i*32, j*32, 0);
@@ -118,12 +119,6 @@ public class GeneratorScreen implements Screen {
 						KumQuat.cache.add(Resources.getImage("tiles/wall-"+up+"-"+right+"-"+down+"-"+left+"-bck"), i*32, j*32);
 					}
 				}
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		
 		maze.caheIDs[layer] = KumQuat.cache.endCache();

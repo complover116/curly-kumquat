@@ -14,6 +14,7 @@ script: "./NoTesting.sh"
 deploy:
   provider: gcs
   access_key_id: GOOGN5LIWR6GNM6NPPWV
+  skip_cleanup: true
   secret_access_key:
     secure: U3KE3Qk0z0x0VcPyDzCzzII05LGYiiducOnHFa0nNvJplqF+gEjIjO+uD8rI2GzSFEfidj8NHnrubVnIBO3jV0TIqG4onSA87b0rF/lCe5OHr9cDLoQH23Sxtzvuw3Sq9M2HZmFe/2sDRA/CYyqulGoXMoiQ9tahOA44QFAx2beCDNMzgm/zwIwmGdlxvNjTftsViOOU/cZm2zfS58Hh5kGG5sMcx9TYNNgxJTvxEeJa/Z3KsKBZc4jkehPM/z+I4YhQoAy/oYPIOS4CmN9is6MeJ4HK+QmMuO4/TntXzVH2VV3PWX3l25Wpa+CpGCW8xbQrLVPWdnUyDHumRukovpSJHtwTh2MKNdXdwQ9hoOhfEofK/wJpTzDg+XfZb4ecYrKnBNILtzIzA8VUdfcTNW90AityYfVNTkumG+lwGO8o1ETJkzwLElce1l8E0NXkCwuMBF4vpWuEJWeARlbO+0Pe6DnIBh/JfLiZ4Vmy0i4jtHyG+K9P+lFOs59bRvi4K6n0v6UhlWlD/uj7tWpHCSAdtma5PIXzqmb/cTO2FGVOKi55qI7ouuDhB8BSOULUaCvMeP/kqf72oUDSd9ZvkIQPU6f4+nNW7z+xOAzAz8xi0U8VgO/BoZxhknKCM6XADWYxVqVXH/J7+PGA2gZFIVUYt4UmQZyeyPBNQBQRk/0=
   bucket: kumquat_build_storage

@@ -14,11 +14,11 @@ public class Character {
 	}
 	
 	boolean checkMove(float x, float y) {
-		for(int i = (int) (dx/32 - 2); i < dx/32 + 2; i ++) {
-			for(int j = (int) (dy/32 - 2); j < dy/32 + 2; j ++) {
+		for(int i = (int) (x/32 - 2); i < x/32 + 2; i ++) {
+			for(int j = (int) (y/32 - 2); j < y/32 + 2; j ++) {
 				try{
 				if(CurGame.maze.tiles[CurGame.curLayer][i][j] != 0) {
-					if(dx < i*32+16&&dx >= i*32-16&&dy < j*32+16&&dy>=j*32-16) {
+					if(x < i*32+16&&x >= i*32-16&&y < j*32+16&&y>=j*32-16) {
 						return false;
 					}else {
 						
@@ -44,10 +44,12 @@ public class Character {
 		
 		
 		if(checkMove(dx,dy)) {
+			y = dy;
 			x = dx;
+		} else if(checkMove(x,dy)){
 			y = dy;
-		} else if(checkMove(x, dy)) {
-			y = dy;
+		} else if(checkMove(dx,y)){
+			x = dx;
 		}
 	}
 }

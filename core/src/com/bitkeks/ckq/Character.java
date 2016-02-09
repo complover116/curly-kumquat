@@ -37,8 +37,8 @@ public class Character {
 		
 			rot += (goalTurn-rot)*deltaT*10;
 		
-		dx = x + (float) (Math.sin(Math.toRadians(rot))*walkspeed*deltaT);
-		dy = y + (float) (Math.cos(Math.toRadians(rot))*walkspeed*deltaT);
+		dx = x + (float) (Math.sin(Math.toRadians(rot))*1.5*walkspeed*deltaT);
+		dy = y + (float) (Math.cos(Math.toRadians(rot))*1.5*walkspeed*deltaT);
 		
 		
 		

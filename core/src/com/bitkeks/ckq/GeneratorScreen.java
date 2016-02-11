@@ -37,7 +37,7 @@ public class GeneratorScreen implements Screen {
 			for(int j = 0; j < maze.cellsX; j ++)
 				grid[i][j] = new Coords(i, j);
 		maze.tiles = new int[maze.layernum][maze.cellsX*2 + 1][maze.cellsY*2 + 1];
-		maze.caheIDs = new int[maze.layernum];
+		maze.cacheIDs = new int[maze.layernum];
 		for(int i = 0; i < maze.cellsX*2 + 1; i++)
 			for(int j = 0; j < maze.cellsY*2 + 1; j++)
 				maze.tiles[0][i][j] = -1;
@@ -76,7 +76,7 @@ public class GeneratorScreen implements Screen {
 					if(maze.tiles[0][i][j+1] != 0)
 						up = 1;
 				} catch(ArrayIndexOutOfBoundsException e){}
-				maze.tiles[0][i][j] = up+right*2+down*4+left*8;
+				maze.tiles[0][i][j] = up+right*2+down*4+left*8+maze.tiles[0][i][j]*16;
 			}
 	}
 	public static void cacheLayer(int layer) {
@@ -100,19 +100,19 @@ public class GeneratorScreen implements Screen {
 						left = 0;
 						
 						try{
-							if(maze.tiles[0][i-1][j] != 0)
+							if(maze.tiles[layer][i-1][j] != 0)
 								left = 1;
 						} catch(ArrayIndexOutOfBoundsException e){}
 						try{
-							if(maze.tiles[0][i+1][j] != 0)
+							if(maze.tiles[layer][i+1][j] != 0)
 								right = 1;
 						} catch(ArrayIndexOutOfBoundsException e){}
 						try{
-							if(maze.tiles[0][i][j-1] != 0)
+							if(maze.tiles[layer][i][j-1] != 0)
 								down = 1;
 						} catch(ArrayIndexOutOfBoundsException e){}
 						try{
-							if(maze.tiles[0][i][j+1] != 0)
+							if(maze.tiles[layer][i][j+1] != 0)
 								up = 1;
 						} catch(ArrayIndexOutOfBoundsException e){}
 						
@@ -121,7 +121,7 @@ public class GeneratorScreen implements Screen {
 				}
 		}
 		
-		maze.caheIDs[layer] = KumQuat.cache.endCache();
+		maze.cacheIDs[layer] = KumQuat.cache.endCache();
 	}
 	public static void tickGenerator() {
 		if(!curCell.visited){
@@ -153,10 +153,44 @@ public class GeneratorScreen implements Screen {
 				for(int i = 0; i < maze.cellsX*maze.cellsY/10; i++) {
 					maze.tiles[0][2*(int)(Math.random()*maze.cellsX) + 1][2*(int)(Math.random()*maze.cellsY) + 1] = 0;
 				}
-				Gdx.app.log("Generator", "Connecting tiles...");
-				//connectTiles();
+				
 				
 				cacheLayer(0);
+				int eventnum = 0;
+				int eventCellX;
+				int eventCellY;
+				int curlayer = 1;
+				while(eventnum < maze.eventnum){
+					for(int i = 0; i < maze.cellsX*2 + 1; i++)
+						for(int j = 0; j < maze.cellsY*2 + 1; j++)
+							maze.tiles[curlayer][i][j] = maze.tiles[curlayer-1][i][j];
+					
+					eventCellX = (int) (Math.random()*(maze.cellsX*2-1)+1);
+					eventCellY = (int) (Math.random()*(maze.cellsY*2-1)+1);
+					
+					Event event = new Event(Object.objects.get(0), eventnum*1+10, eventCellX*32, eventCellY*32);
+					event.newLayer = curlayer;
+					maze.events.add(event);
+					eventnum ++;
+					
+					for(int i = eventCellX-4; i < eventCellX + 4; i++){
+						for(int j = eventCellX-4; j < eventCellX + 4; j++)
+						{
+							try{
+							if(Math.random()>0.5)
+							maze.tiles[curlayer][i][j] = -1;
+							else
+							maze.tiles[curlayer][i][j] = 0;}
+							catch(ArrayIndexOutOfBoundsException e) {
+								
+							}
+						}
+					}
+					Gdx.app.log("Generator", "Registered event "+eventnum+" at x:"+eventCellX+" y:"+eventCellY);
+					
+					cacheLayer(curlayer);
+					curlayer++;
+				}
 				
 				brk = true;
 				CurGame.maze = maze;

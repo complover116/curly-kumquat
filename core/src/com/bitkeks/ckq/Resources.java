@@ -50,19 +50,19 @@ public class Resources {
 			}
 			i++;
 		}
-
+		
 		Gdx.app.log("Resources", "Loading sound list...");
-
+		
 		String soundlistRaw = Gdx.files.internal("SoundList").readString();
-
+		
 		String soundlist[] = soundlistRaw.split("\n");
 		Gdx.app.log("Resources", "Found " + soundlist.length + " sound declarations");
-
+		
 		for (String soundname : soundlist) {
 			soundname = soundname.trim();
 			//MainMenuScreen.loadStep = "Loading " + soundname;
 			try {
-				sounds.put(soundname, Gdx.audio.newSound(Gdx.files.internal("sound/effects/" + soundname + ".wav")));
+				sounds.put(soundname, Gdx.audio.newSound(Gdx.files.internal("sound/" + soundname + ".wav")));
 				Gdx.app.log("Resources", "Loaded " + soundname);
 			} catch (Exception e) {
 				Gdx.app.error("Resources", "Failed loading " + soundname);
@@ -70,12 +70,15 @@ public class Resources {
 				//return;
 			}
 		}
+		//sounds.get("env/fire").play();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 
 		}
 		//MainMenuScreen.loaded = 0;
+		//TODO:TEMP
+		Object.objects.add(new Object(Object.TYPE_METAL, "wreck/test_1", 64));
 	}
 
 	public static TextureRegion getImage(String name) {
@@ -88,6 +91,10 @@ public class Resources {
 	}
 
 	static void playSound(String name) {
-		//sounds.get(name).play(Settings.soundVolume / (float) 100);
+		if(sounds.get(name).play() == -1) {
+			Gdx.app.error("Sound", "Error playing "+name);
+		}
+		//Gdx.app.debug("Sound", "Playing "+name);
+		
 	}
 }

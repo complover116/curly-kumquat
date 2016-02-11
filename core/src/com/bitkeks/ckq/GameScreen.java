@@ -18,7 +18,8 @@ public class GameScreen implements Screen {
 	public GameScreen() {}
 	@Override
 	public void render(float delta) {
-		
+		CurGame.gameTime += delta;
+		CurGame.tickEvents();
 		Input.processInput();
 		//Input.processKeyInput();
 		
@@ -48,12 +49,14 @@ public class GameScreen implements Screen {
 		byte right = 0;
 		byte down = 0;
 		byte left = 0;*/
-		KumQuat.cache.draw(CurGame.maze.caheIDs[CurGame.curLayer]);
+		KumQuat.cache.draw(CurGame.maze.cacheIDs[CurGame.curLayer]);
 		
 		KumQuat.cache.end();
 		KumQuat.batch.begin();
 		
-		KumQuat.batch.draw(Resources.getImage("character/idle"), CurGame.character.x, CurGame.character.y, 15.5f, 15.5f, 32, 32, 1,1, -CurGame.character.rot);
+		CurGame.character.draw();
+		
+		
 		KumQuat.batch.end();
 		
 		Gdx.gl.glEnable(GL20.GL_BLEND);

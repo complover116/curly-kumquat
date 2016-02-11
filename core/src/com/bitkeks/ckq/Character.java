@@ -1,5 +1,7 @@
 package com.bitkeks.ckq;
 
+import com.badlogic.gdx.Gdx;
+
 public class Character {
 	float x;
 	float y;
@@ -8,6 +10,7 @@ public class Character {
 	float goalTurn = 0;
 	float dx = 0;
 	float dy = 0;
+	float anim = 0;
 	public Character() {
 		x = 40;
 		y = 40;
@@ -29,6 +32,14 @@ public class Character {
 		}
 		return true;
 	}
+	public void draw() {
+		if(anim == 0)
+			KumQuat.batch.draw(Resources.getImage("character/new"), x, y, 15.5f, 15.5f, 32, 32, 1,1, -rot);
+		if(anim > 0)
+			KumQuat.batch.draw(Resources.getImage("character/new_walk1"), x, y, 15.5f, 15.5f, 32, 32, 1,1, -rot);
+		if(anim < 0)
+			KumQuat.batch.draw(Resources.getImage("character/new_walk2"), x, y, 15.5f, 15.5f, 32, 32, 1,1, -rot);
+	}
 	public void tick(float deltaT) {
 		if(goalTurn-rot>180)
 			rot += 360;
@@ -40,8 +51,20 @@ public class Character {
 		dx = x + (float) (Math.sin(Math.toRadians(rot))*walkspeed*deltaT);
 		dy = y + (float) (Math.cos(Math.toRadians(rot))*walkspeed*deltaT);
 		
+		if(walkspeed == 0) {
+			anim = 0;
+		}
+		anim += walkspeed/32*deltaT;
 		
-		
+		if(anim > 1) {
+			anim -= 3;
+			Resources.playSound("step/step_"+(int)(Math.random()*3+1));
+		} else {
+			if(anim > -1 && anim < 0) {
+				anim += 1;
+				Resources.playSound("step/step_"+(int)(Math.random()*3+1));
+			}
+		}
 		
 		if(checkMove(dx,dy)) {
 			y = dy;

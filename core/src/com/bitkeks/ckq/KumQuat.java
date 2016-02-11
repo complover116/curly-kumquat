@@ -1,12 +1,13 @@
 package com.bitkeks.ckq;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteCache;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-//import com.badlogic.gdx.graphics.g2d.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class KumQuat extends Game {
@@ -26,6 +27,7 @@ public class KumQuat extends Game {
 	
 	@Override
 	public void create () {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		game = this;
 		camera = new OrthographicCamera();
 		UIcamera = new OrthographicCamera();

@@ -1,5 +1,8 @@
 package com.bitkeks.ckq;
 
+import java.util.ArrayList;
+import com.badlogic.gdx.graphics.Color;
+
 import com.badlogic.gdx.Gdx;
 
 public class CurGame {
@@ -7,13 +10,33 @@ public class CurGame {
 	public static int curLayer = 0;
 	public static Character character = new Character();
 	static double gameTime = 0;
-	
-	
+
+	public static ArrayList<Entity> entities = new ArrayList<Entity>();
+
+	public static void tickEnts(double delta) {
+		for (int i = entities.size() - 1; i > -1; i--){
+			if(entities.get(i).isDead){
+				entities.remove(i);
+			} else 
+				entities.get(i).tick(delta);
+		}
+			
+	}
+
 	public static void tickEvents() {
-		for(int i = 0; i < maze.events.size(); i ++) {
-			if(maze.events.get(i).time < gameTime) {
+		for (int i = 0; i < maze.events.size(); i++) {
+			if (maze.events.get(i).time < gameTime) {
 				curLayer = maze.events.get(i).newLayer;
-				Gdx.app.log("Event", "Pregenerated event at "+maze.events.get(i).time+ " (+" + (gameTime-maze.events.get(i).time)+"s) newLayer:"+curLayer);
+				
+				float x0 = maze.events.get(i).x-maze.events.get(i).object.radius;
+				float y0 = maze.events.get(i).y-maze.events.get(i).object.radius;
+				float d = maze.events.get(i).object.radius/5;
+				Gdx.app.log("Event", "Pregenerated event at " + maze.events.get(i).time + " (+"
+						+ (gameTime - maze.events.get(i).time) + "s) newLayer:" + curLayer+ "x0:"+x0);
+				for(int x = 0; x < 10; x ++)
+					for(int y = 0; y < 10; y ++){
+						entities.add(new Particle(x0+d*x, y0+d*y, (x-5)*10, (y-5)*10, 10, 5, Color.GRAY));
+					}
 				maze.events.remove(i);
 				break;
 			}

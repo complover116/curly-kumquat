@@ -5,13 +5,15 @@ public class Event {
 	
 	float time;
 	Object object;
-	int x;
-	int y;
+	float x;
+	float y;
 	int newLayer;
 	
 	boolean happened = false;
 	public Event(Object object, float time, float x, float y) {
 		this.object = object;
 		this.time = time;
+		this.x = x;
+		this.y = y; 
 	}
 }

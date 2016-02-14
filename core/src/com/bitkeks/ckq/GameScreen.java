@@ -3,6 +3,7 @@ package com.bitkeks.ckq;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -69,7 +70,19 @@ public class GameScreen implements Screen {
 		for(int i = 0; i < CurGame.entities.size(); i++) 
 			CurGame.entities.get(i).draw();
 		
+		//DEBUG EVENT LOCATION
+		KumQuat.shapeRenderer.setColor(Color.RED);
+		for(int i = 0; i < CurGame.maze.events.size(); i ++) {
+			Event event = CurGame.maze.events.get(i);
+			KumQuat.shapeRenderer.line(event.x-10, event.y, event.x+10, event.y);
+			KumQuat.shapeRenderer.line(event.x, event.y-10, event.x, event.y+10);
+		}
+		
 		KumQuat.shapeRenderer.end();
+		
+		
+		
+		
 		
 		KumQuat.UIshapeRenderer.begin(ShapeType.Filled);
 		

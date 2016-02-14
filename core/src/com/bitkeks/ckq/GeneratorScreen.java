@@ -185,13 +185,13 @@ public class GeneratorScreen implements Screen {
 					eventCellX = (int) (Math.random() * (maze.cellsX * 2 - 1) + 1);
 					eventCellY = (int) (Math.random() * (maze.cellsY * 2 - 1) + 1);
 
-					Event event = new Event(Object.objects.get(0), eventnum * 1 + 3, eventCellX * 32, eventCellY * 32);
+					Event event = new Event(Object.objects.get(0), (float)Math.random()*60 + 3, eventCellX * 32, eventCellY * 32);
 					event.newLayer = curlayer;
 					maze.events.add(event);
 					eventnum++;
 
-					for (int i = eventCellX - 2; i < eventCellX + 2; i++) {
-						for (int j = eventCellX - 2; j < eventCellX + 2; j++) {
+					for (int i = eventCellX - 2; i < eventCellX + 3; i++) {
+						for (int j = eventCellY - 2; j < eventCellY + 3; j++) {
 							try {
 								if (Math.random() > 0.5)
 									maze.tiles[curlayer][i][j] = -1;

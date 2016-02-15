@@ -70,7 +70,7 @@ public class Resources {
 				//return;
 			}
 		}
-		//sounds.get("env/fire").play();
+		sounds.get("env/fire").loop();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

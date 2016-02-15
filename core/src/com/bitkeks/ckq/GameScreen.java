@@ -63,6 +63,10 @@ public class GameScreen implements Screen {
 
 		CurGame.character.draw();
 
+		
+		for(int i = 0; i < CurGame.entities.size(); i++) 
+			CurGame.entities.get(i).drawBatch();
+		
 		KumQuat.batch.end();
 
 		Gdx.gl.glEnable(GL20.GL_BLEND);

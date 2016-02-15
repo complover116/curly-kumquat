@@ -39,7 +39,7 @@ public class KumQuat extends Game {
 		batch = new SpriteBatch();
 		UIshapeRenderer = new ShapeRenderer();
 		shapeRenderer = new ShapeRenderer();
-		cache = new SpriteCache(20000, false);
+		cache = new SpriteCache(200000, false);
 		MMS = new MainMenuScreen();
 		GS = new GeneratorScreen();
 		GMS = new GameScreen();

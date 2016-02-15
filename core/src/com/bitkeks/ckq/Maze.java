@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Maze {
 	// Params
-	int eventnum = 9;
+	int eventnum = 19;
 	int eventsAtTime = 1;
-	int cellsX = 10;
-	int cellsY = 10;
+	int cellsX = 30;
+	int cellsY = 30;
 	int randomSeed = 1337;
 
 	// Finished maze fields
-	int layernum = 11;
+	int layernum = 20;
 	int tiles[][][];
 	int cacheIDs[];
 	boolean generated = false;

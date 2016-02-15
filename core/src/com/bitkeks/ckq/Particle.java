@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class Particle extends Entity {
 
-	float x, y, velX, velY, size, time, decay;
+	float velX, velY, size, time, decay;
 	Color color;
 
 	public Particle(float x, float y, float velX, float velY, float size, float decay, Color color) {

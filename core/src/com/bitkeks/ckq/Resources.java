@@ -15,7 +15,7 @@ public class Resources {
 	public static HashMap<String, Integer> cachedIDs = new HashMap<String, Integer>();
 	public static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 	
-	
+	public static long fireSoundID;
 	
 	/*public static void loadVital() {
 		textures.put("splashscreen", new Texture(Gdx.files.internal("img/Logo.png")));
@@ -70,7 +70,7 @@ public class Resources {
 				//return;
 			}
 		}
-		sounds.get("env/fire").loop();
+		fireSoundID = sounds.get("env/fire_loud").loop();
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

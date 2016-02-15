@@ -99,6 +99,23 @@ public class GameScreen implements Screen {
 			KumQuat.UIshapeRenderer.circle(100 + Input.joyX, 100 + Input.joyY, 40);
 		}
 		KumQuat.UIshapeRenderer.end();
+		
+		
+		
+		float fireIntensity = 0;
+		//TODO: add panning
+		//float firePan = 0;
+		
+		
+		for(int i = 0; i < CurGame.entities.size(); i ++)
+			if(CurGame.entities.get(i) instanceof EntityFire) {
+				float dist = (float) Math.sqrt(Math.pow(CurGame.entities.get(i).x - CurGame.character.x, 2) + Math.pow(CurGame.entities.get(i).y - CurGame.character.y, 2));
+				if (dist < 1024) {
+					fireIntensity += 1024-dist;
+				}
+			}
+		
+		Resources.sounds.get("env/fire").setVolume(Resources.fireSoundID, Math.min(fireIntensity/1024, 1));
 	}
 
 	@Override

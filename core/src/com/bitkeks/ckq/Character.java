@@ -1,7 +1,5 @@
 package com.bitkeks.ckq;
 
-import com.badlogic.gdx.Gdx;
-
 public class Character {
 	float x;
 	float y;

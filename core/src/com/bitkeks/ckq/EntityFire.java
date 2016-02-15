@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 public class EntityFire extends Entity {
 
 	
-	float lifetime, x, y, radius;
+	float lifetime, radius;
 	
 	@Override
 	public void tick(double delta) {

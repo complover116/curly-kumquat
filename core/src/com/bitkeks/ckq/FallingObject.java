@@ -2,7 +2,7 @@ package com.bitkeks.ckq;
 
 public class FallingObject extends Entity {
 
-	float x,y,rot,velX,velY,velRot,height;
+	float rot,velX,velY,velRot,height;
 	Object obj;
 	EntityFire fireEffect;
 	@Override

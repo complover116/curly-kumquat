@@ -26,7 +26,7 @@ public class CurGame {
 	public static void tickEvents() {
 		for (int i = 0; i < maze.events.size(); i++) {
 			if (maze.events.get(i).time < gameTime+3 && !maze.events.get(i).happened) {
-				entities.add(new FallingObject(maze.events.get(i).x,maze.events.get(i).y, 3, maze.events.get(i).object));
+				entities.add(new FallingObject(maze.events.get(i).x-64 ,maze.events.get(i).y-64, 3, maze.events.get(i).object));
 				maze.events.get(i).happened = true;
 			}
 			if (maze.events.get(i).time < gameTime) {

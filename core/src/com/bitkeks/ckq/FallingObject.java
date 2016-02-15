@@ -4,15 +4,20 @@ public class FallingObject extends Entity {
 
 	float x,y,rot,velX,velY,velRot,height;
 	Object obj;
+	EntityFire fireEffect;
 	@Override
 	public void tick(double delta) {
 		x += velX*delta;
 		y += velY*delta;
+		fireEffect.x = x+64;
+		fireEffect.y = y+64;
+		fireEffect.radius = 64*(height+1);
 		rot += velRot*delta;
 		height -= delta;
 		if(height < 0){
 			this.isDead = true;
 			Resources.playSound("env/crash"+(int)(Math.random()*2+1));
+			CurGame.entities.add(new EntityFire(x+64, y+64, 128, 15));
 		}
 	}
 
@@ -24,6 +29,8 @@ public class FallingObject extends Entity {
 		this.velY = (y - this.y)/delay;
 		this.velRot = (float) (Math.random()*180-90);
 		this.height = delay;
+		fireEffect = new EntityFire(x+64, y+64, 64, 15);
+		CurGame.entities.add(fireEffect);
 	}
 
 	@Override

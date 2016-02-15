@@ -185,7 +185,7 @@ public class GeneratorScreen implements Screen {
 
 					eventCellX = (int) (Math.random() * (maze.cellsX * 2 - 1) + 1);
 					eventCellY = (int) (Math.random() * (maze.cellsY * 2 - 1) + 1);
-					lastTime = (float)Math.random()*5 + lastTime;
+					lastTime = (float)Math.random()*10 + lastTime;
 					Event event = new Event(Object.objects.get(0), lastTime, eventCellX * 32, eventCellY * 32);
 					event.newLayer = curlayer;
 					maze.events.add(event);

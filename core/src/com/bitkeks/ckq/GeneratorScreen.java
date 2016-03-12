@@ -194,6 +194,7 @@ public class GeneratorScreen implements Screen {
 					for (int i = eventCellX - 2; i < eventCellX + 3; i++) {
 						for (int j = eventCellY - 2; j < eventCellY + 3; j++) {
 							try {
+								if(i != 0 && i!= maze.cellsX*2&&j!=0&&j!=maze.cellsY*2)
 								if (Math.random() > 0.5)
 									maze.tiles[curlayer][i][j] = -1;
 								else

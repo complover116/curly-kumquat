@@ -16,6 +16,7 @@ public class FallingObject extends Entity {
 		height -= delta;
 		if(height < 0){
 			this.isDead = true;
+			fireEffect.isDead = true;
 			Resources.playSound("env/crash"+(int)(Math.random()*2+1));
 			CurGame.entities.add(new EntityFire(x+64, y+64, 128, 15));
 		}

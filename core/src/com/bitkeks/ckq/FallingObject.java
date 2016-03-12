@@ -17,7 +17,21 @@ public class FallingObject extends Entity {
 		if(height < 0){
 			this.isDead = true;
 			fireEffect.isDead = true;
-			Resources.playSound("env/crash"+(int)(Math.random()*2+1));
+			
+			float dist = (float) Math.sqrt(Math.pow(x - CurGame.character.x, 2) + Math.pow(y - CurGame.character.y, 2));
+			
+			if(dist < 512)
+			Resources.playSound("env/crash1");
+			else {
+				if(dist < 1024){
+					float pan = Math.min(Math.max((x-CurGame.character.x)/1024, -1), 1);
+					Resources.sounds.get("env/crash1_med").play(dist/2048, 1, pan);
+				} else {
+					float pan = Math.min(Math.max((x-CurGame.character.x)/1024, -1), 1);
+					Resources.sounds.get("env/crash1_distant").play(dist/2048, 1, pan);
+				}
+			}
+			
 			CurGame.entities.add(new EntityFire(x+64, y+64, 128, 15));
 		}
 	}

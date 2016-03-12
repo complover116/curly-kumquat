@@ -115,7 +115,7 @@ public class GameScreen implements Screen {
 				}
 			}
 		
-		Resources.sounds.get("env/fire").setVolume(Resources.fireSoundID, Math.min(fireIntensity/1024, 1));
+		Resources.sounds.get("env/fire").setVolume(Resources.fireSoundID, Math.min(fireIntensity/2048, 1));
 	}
 
 	@Override

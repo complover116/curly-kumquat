@@ -71,6 +71,7 @@ public class Resources {
 			}
 		}
 		fireSoundID = sounds.get("env/fire_loud").loop();
+		sounds.get("env/fire").setVolume(fireSoundID,0);
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {

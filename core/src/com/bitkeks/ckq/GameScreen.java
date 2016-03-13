@@ -94,9 +94,9 @@ public class GameScreen implements Screen {
 		
 		if (Gdx.app.getType() == Application.ApplicationType.Android) {
 			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 0.5f);
-			KumQuat.UIshapeRenderer.circle(100, 100, 100);
+			KumQuat.UIshapeRenderer.circle(100, 150, 100);
 			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 1);
-			KumQuat.UIshapeRenderer.circle(100 + Input.joyX, 100 + Input.joyY, 40);
+			KumQuat.UIshapeRenderer.circle(100 + Input.joyX, 150 + Input.joyY, 40);
 		}
 		KumQuat.UIshapeRenderer.end();
 		

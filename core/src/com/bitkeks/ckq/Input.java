@@ -38,7 +38,7 @@ public class Input {
 				
 				Vector2 pos = KumQuat.UIviewport.unproject(new Vector2(Gdx.input.getX(i), Gdx.input.getY(i)));
 				//Gdx.app.log("Input", "Joy active"+pos.x);
-				if(pos.dst(100, 100) < 30) {
+				if(pos.dst(100, 150) < 30) {
 					joyActive = true;
 					joyTouchID = i;
 					
@@ -55,7 +55,7 @@ public class Input {
 				joyY = 0;
 				CurGame.character.walkspeed = 0;
 			} else {
-				Vector2 pos = KumQuat.UIviewport.unproject(new Vector2(Gdx.input.getX(joyTouchID), Gdx.input.getY(joyTouchID))).sub(100, 100);
+				Vector2 pos = KumQuat.UIviewport.unproject(new Vector2(Gdx.input.getX(joyTouchID), Gdx.input.getY(joyTouchID))).sub(100, 150);
 				
 				pos.limit(100);
 				joyX = pos.x;

@@ -12,9 +12,9 @@ public class GameScreen implements Screen {
 	float scrollX;
 	float scrollY;
 
-	float WIDTH;
-	float HEIGHT;
-	float Xtension;
+	static float WIDTH;
+	static float HEIGHT;
+	static float Xtension;
 
 	// AndroidButton buttons[] = new AndroidButton[4];
 	public GameScreen() {

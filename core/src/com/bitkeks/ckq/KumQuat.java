@@ -14,6 +14,7 @@ public class KumQuat extends Game {
 
 	public static KumQuat game;
 	public static SpriteBatch batch;
+	public static SpriteBatch UIbatch;
 	public static ShapeRenderer UIshapeRenderer;
 	public static ShapeRenderer shapeRenderer;
 	public static SpriteCache cache;
@@ -37,6 +38,7 @@ public class KumQuat extends Game {
 		viewport = new ExtendViewport(800, 600, camera);
 		UIviewport = new ExtendViewport(800, 600, UIcamera);
 		batch = new SpriteBatch();
+		UIbatch = new SpriteBatch();
 		UIshapeRenderer = new ShapeRenderer();
 		shapeRenderer = new ShapeRenderer();
 		cache = new SpriteCache(200000, false);

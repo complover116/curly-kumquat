@@ -9,6 +9,7 @@ public class Character {
 	float dx = 0;
 	float dy = 0;
 	float anim = 0;
+	float health = 100;
 	public Character() {
 		x = 40;
 		y = 40;
@@ -45,7 +46,8 @@ public class Character {
 			rot -= 360;
 		
 			rot += (goalTurn-rot)*deltaT*10;
-		
+			if(health < 100)
+		health += deltaT*5;
 		dx = x + (float) (Math.sin(Math.toRadians(rot))*1.5*walkspeed*deltaT);
 		dy = y + (float) (Math.cos(Math.toRadians(rot))*1.5*walkspeed*deltaT);
 		

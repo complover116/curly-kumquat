@@ -15,6 +15,8 @@ public class GameScreen implements Screen {
 	static float WIDTH;
 	static float HEIGHT;
 	static float Xtension;
+	
+	float gameSpeed = 1;
 
 	// AndroidButton buttons[] = new AndroidButton[4];
 	public GameScreen() {
@@ -22,15 +24,17 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		CurGame.gameTime += delta;
+		float ingameDelta = delta;
+		ingameDelta *= gameSpeed;
+		CurGame.gameTime += ingameDelta;
 		CurGame.tickEvents();
 		if (Gdx.app.getType() == Application.ApplicationType.Android)
 			Input.processInput();
 		else
 			Input.processKeyInput();
 
-		CurGame.tickEnts(delta);
-		CurGame.character.tick(delta);
+		CurGame.tickEnts(ingameDelta);
+		CurGame.character.tick(ingameDelta);
 
 		// float leftGutter = KumQuat.viewport.getLeftGutterWidth();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -48,6 +52,7 @@ public class GameScreen implements Screen {
 
 		KumQuat.camera.update();
 		KumQuat.batch.setProjectionMatrix(KumQuat.camera.combined);
+		KumQuat.UIbatch.setProjectionMatrix(KumQuat.UIcamera.combined);
 		KumQuat.cache.setProjectionMatrix(KumQuat.camera.combined);
 		KumQuat.UIshapeRenderer.setProjectionMatrix(KumQuat.UIcamera.combined);
 		KumQuat.shapeRenderer.setProjectionMatrix(KumQuat.camera.combined);
@@ -68,7 +73,9 @@ public class GameScreen implements Screen {
 			CurGame.entities.get(i).drawBatch();
 		
 		KumQuat.batch.end();
-
+		
+		
+		
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		KumQuat.shapeRenderer.begin(ShapeType.Filled);
 		for(int i = 0; i < CurGame.entities.size(); i++) 
@@ -85,7 +92,13 @@ public class GameScreen implements Screen {
 		KumQuat.shapeRenderer.end();
 		
 		
+		KumQuat.UIbatch.begin();
+		if(CurGame.character.health>0)
+		KumQuat.UIbatch.draw(Resources.getImage("interface/hpBar"), WIDTH - 256 - Xtension, HEIGHT - 64);
+		else
+		KumQuat.UIbatch.draw(Resources.getImage("interface/ripscreen"), Xtension, HEIGHT/2 - 256);
 		
+		KumQuat.UIbatch.end();
 		
 		
 		KumQuat.UIshapeRenderer.begin(ShapeType.Filled);
@@ -98,13 +111,19 @@ public class GameScreen implements Screen {
 			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 1);
 			KumQuat.UIshapeRenderer.circle(100 + Input.joyX, 150 + Input.joyY, 40);
 		}
+		if(CurGame.character.health>0){
+			KumQuat.UIshapeRenderer.setColor(Color.RED);
+			KumQuat.UIshapeRenderer.rect(WIDTH - 256 - Xtension+9, HEIGHT - 48, 244*CurGame.character.health/100, 22);
+		} else {
+			gameSpeed -= gameSpeed*delta;
+			KumQuat.camera.zoom += delta*0.25;
+			
+		}
 		KumQuat.UIshapeRenderer.end();
 		
 		
 		
 		float fireIntensity = 0;
-		//TODO: add panning
-		//float firePan = 0;
 		
 		
 		for(int i = 0; i < CurGame.entities.size(); i ++)

@@ -20,6 +20,10 @@ public class FallingObject extends Entity {
 			this.isDead = true;
 			fireEffect.isDead = true;
 			
+			if(Math.sqrt((CurGame.character.x-x-obj.radius)*(CurGame.character.x-x-obj.radius) + (CurGame.character.y-y-obj.radius)*(CurGame.character.y-y-obj.radius))< obj.radius*1.5) {
+				CurGame.character.health = 0;
+			}
+			
 			float dist = (float) Math.sqrt(Math.pow(x - CurGame.character.x, 2) + Math.pow(y - CurGame.character.y, 2));
 			
 			if(dist < 512)
@@ -34,7 +38,7 @@ public class FallingObject extends Entity {
 				}
 			}
 			
-			CurGame.entities.add(new EntityFire(x+obj.radius, y+obj.radius, obj.radius*2, 15));
+			CurGame.entities.add(new EntityFire(x+obj.radius, y+obj.radius, obj.radius*2, 15, true));
 			//Gdx.app.log("Event", "Particle location:"+x0+":"+y0);
 			for(int dx = 0; dx < obj.radius/4; dx ++)
 				for(int dy = 0; dy < obj.radius/4; dy ++){
@@ -51,7 +55,7 @@ public class FallingObject extends Entity {
 		this.velY = (y - this.y)/delay;
 		this.velRot = (float) (Math.random()*180-90);
 		this.height = delay;
-		fireEffect = new EntityFire(x+obj.radius, y+obj.radius, obj.radius, 15);
+		fireEffect = new EntityFire(x+obj.radius, y+obj.radius, obj.radius, 15, false);
 		CurGame.entities.add(fireEffect);
 	}
 

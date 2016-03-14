@@ -75,7 +75,7 @@ public class Resources {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-
+		
 		}
 		//MainMenuScreen.loaded = 0;
 		//TODO:TEMP

@@ -5,20 +5,29 @@ import com.badlogic.gdx.graphics.Color;
 public class EntityFire extends Entity {
 
 	
-	float lifetime, radius;
+	float lifetime, radius, particleSpawn;
+	boolean real;
 	
 	@Override
 	public void tick(double delta) {
 		lifetime -= delta;
+		particleSpawn += delta;
 		if(x>CurGame.character.x + GameScreen.WIDTH/2+radius) return;
 		if(x<CurGame.character.x - GameScreen.WIDTH/2-radius) return;
 		if(y>CurGame.character.y + GameScreen.HEIGHT/2+radius) return;
 		if(y<CurGame.character.y - GameScreen.HEIGHT/2-radius) return;
+		if(real && Math.sqrt((CurGame.character.x-x)*(CurGame.character.x-x) +(CurGame.character.y-y)*(CurGame.character.y-y))< radius) {
+			CurGame.character.health -= delta*50;
+		}
+		if(particleSpawn > 0.01){
 		for(int i = 0; i < radius/32; i ++){
 			CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), (float)Math.random()*10, (float) (Math.random()*64+16), 6, 3, Color.YELLOW));
 			CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), (float)Math.random()*10, (float) (Math.random()*32+16), 6, 3, Color.ORANGE));
 			CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), (float)Math.random()*10, (float) (Math.random()*16), 6, 3, Color.RED));
 		}
+		particleSpawn = 0;
+		}
+		
 		if(lifetime < 0){
 			this.isDead = true;
 			for(int i = 0; i < radius; i ++)
@@ -26,9 +35,10 @@ public class EntityFire extends Entity {
 		}
 	}
 	
-	public EntityFire(float x, float y, float radius, float lifetime) {
+	public EntityFire(float x, float y, float radius, float lifetime, boolean real) {
 		this.x = x;
 		this.y = y;
+		this.real = real;
 		this.radius = radius;
 		this.lifetime = lifetime;
 	}

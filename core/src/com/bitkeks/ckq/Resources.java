@@ -79,7 +79,12 @@ public class Resources {
 		}
 		//MainMenuScreen.loaded = 0;
 		//TODO:TEMP
-		Object.objects.add(new Object(Object.TYPE_METAL, "wreck/test_1", 64));
+		FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_1", 64));
+		FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_2", 64));
+		FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_3", 64));
+		//FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_1_small", 32));
+		//FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_2_small", 32));
+		FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_1_big", 128));
 	}
 
 	public static TextureRegion getImage(String name) {

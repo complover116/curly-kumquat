@@ -10,14 +10,14 @@ public class EntityFire extends Entity {
 	@Override
 	public void tick(double delta) {
 		lifetime -= delta;
-		for(int i = 0; i < 4; i ++){
+		for(int i = 0; i < radius/32; i ++){
 		CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), (float)Math.random()*10, (float) (Math.random()*64+16), 6, 3, Color.YELLOW));
 		CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), (float)Math.random()*10, (float) (Math.random()*32+16), 6, 3, Color.ORANGE));
 		CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), (float)Math.random()*10, (float) (Math.random()*16), 6, 3, Color.RED));
 		}
 		if(lifetime < 0){
 			this.isDead = true;
-			for(int i = 0; i < 80; i ++)
+			for(int i = 0; i < radius; i ++)
 			CurGame.entities.add(new Particle((float) (x+Math.random()*radius-radius/2), (float) (y+Math.random()*radius-radius/2), 0, (float) (Math.random()*32+16), 6, 3, Color.GRAY));
 		}
 			

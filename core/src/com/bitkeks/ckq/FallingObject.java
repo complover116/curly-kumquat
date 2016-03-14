@@ -1,17 +1,19 @@
 package com.bitkeks.ckq;
 
+import com.badlogic.gdx.graphics.Color;
+
 public class FallingObject extends Entity {
 
 	float rot,velX,velY,velRot,height;
-	Object obj;
+	FObjectType obj;
 	EntityFire fireEffect;
 	@Override
 	public void tick(double delta) {
 		x += velX*delta;
 		y += velY*delta;
-		fireEffect.x = x+64;
-		fireEffect.y = y+64;
-		fireEffect.radius = 64*(height+1);
+		fireEffect.x = x+obj.radius;
+		fireEffect.y = y+obj.radius;
+		fireEffect.radius = obj.radius*(height+1);
 		rot += velRot*delta;
 		height -= delta;
 		if(height < 0){
@@ -32,11 +34,16 @@ public class FallingObject extends Entity {
 				}
 			}
 			
-			CurGame.entities.add(new EntityFire(x+64, y+64, 128, 15));
+			CurGame.entities.add(new EntityFire(x+obj.radius, y+obj.radius, obj.radius*2, 15));
+			//Gdx.app.log("Event", "Particle location:"+x0+":"+y0);
+			for(int dx = 0; dx < obj.radius/4; dx ++)
+				for(int dy = 0; dy < obj.radius/4; dy ++){
+					CurGame.entities.add(new Particle(x + dx*8, y+dy*8, (float)Math.random()*80-40, (float) (Math.random()*80-40), 20, 5, Color.GRAY));
+				}
 		}
 	}
 
-	public FallingObject(float x, float y, float delay, Object obj) {
+	public FallingObject(float x, float y, float delay, FObjectType obj) {
 		this.obj = obj;
 		this.x = (float) (x + Math.random()*400-200);
 		this.y = (float) (y + Math.random()*400-200);
@@ -44,13 +51,13 @@ public class FallingObject extends Entity {
 		this.velY = (y - this.y)/delay;
 		this.velRot = (float) (Math.random()*180-90);
 		this.height = delay;
-		fireEffect = new EntityFire(x+64, y+64, 64, 15);
+		fireEffect = new EntityFire(x+obj.radius, y+obj.radius, obj.radius, 15);
 		CurGame.entities.add(fireEffect);
 	}
 
 	@Override
 	public void drawBatch() {
-		KumQuat.batch.draw(Resources.getImage("wreck/test_1"), x, y, 64, 64, 128, 128, height+1, height+1, rot);
+		KumQuat.batch.draw(Resources.getImage(obj.imagename), x, y, obj.radius, obj.radius, obj.radius*2, obj.radius*2, height+1, height+1, rot);
 	}
 
 	@Override

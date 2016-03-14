@@ -186,13 +186,13 @@ public class GeneratorScreen implements Screen {
 					eventCellX = (int) (Math.random() * (maze.cellsX * 2 - 1) + 1);
 					eventCellY = (int) (Math.random() * (maze.cellsY * 2 - 1) + 1);
 					lastTime = (float)(Math.random()*10 + lastTime);
-					Event event = new Event(Object.objects.get(0), lastTime, eventCellX * 32, eventCellY * 32);
+					Event event = new Event(FObjectType.objects.get((int)(Math.random()*FObjectType.objects.size())), lastTime, eventCellX * 32, eventCellY * 32);
 					event.newLayer = curlayer;
 					maze.events.add(event);
 					eventnum++;
 
-					for (int i = eventCellX - 2; i < eventCellX + 3; i++) {
-						for (int j = eventCellY - 2; j < eventCellY + 3; j++) {
+					for (int i = eventCellX - event.object.radius/32; i < eventCellX + event.object.radius/32; i++) {
+						for (int j = eventCellY - event.object.radius/32; j < eventCellY + event.object.radius/32; j++) {
 							try {
 								if(i != 0 && i!= maze.cellsX*2&&j!=0&&j!=maze.cellsY*2)
 								if (Math.random() > 0.5)

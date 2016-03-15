@@ -91,7 +91,7 @@ public class GameScreen implements Screen {
 		
 		KumQuat.shapeRenderer.end();
 		
-		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
 		KumQuat.UIbatch.begin();
 		if(CurGame.character.health>0)
 		KumQuat.UIbatch.draw(Resources.getImage("interface/hpBar"), WIDTH - 256 - Xtension, HEIGHT - 64);

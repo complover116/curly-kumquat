@@ -3,6 +3,7 @@ package com.bitkeks.ckq;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -91,7 +92,7 @@ public class GameScreen implements Screen {
 		
 		KumQuat.shapeRenderer.end();
 		
-		Gdx.gl.glEnable(GL20.GL_BLEND);
+		
 		KumQuat.UIbatch.begin();
 		if(CurGame.character.health>0)
 		KumQuat.UIbatch.draw(Resources.getImage("interface/hpBar"), WIDTH - 256 - Xtension, HEIGHT - 64);
@@ -100,12 +101,11 @@ public class GameScreen implements Screen {
 		
 		KumQuat.UIbatch.end();
 		
-		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
 		KumQuat.UIshapeRenderer.begin(ShapeType.Filled);
 		
-		
-		
-		if (Gdx.app.getType() == Application.ApplicationType.Android) {
+				
+		if (Gdx.app.getType() == ApplicationType.Android) {
 			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 0.5f);
 			KumQuat.UIshapeRenderer.circle(100, 150, 100);
 			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 1);

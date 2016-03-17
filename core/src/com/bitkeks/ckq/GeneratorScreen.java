@@ -12,8 +12,12 @@ public class GeneratorScreen implements Screen {
 	static int cellsProcessed = 0;
 	static Coords curCell = new Coords(0, 0);
 	static Coords grid[][];
-	static boolean brk;
-
+	static boolean brk = true;
+	
+	static boolean completed = true;
+	
+	static double time = 0;
+	
 	static class Coords {
 		int x;
 		int y;
@@ -32,6 +36,8 @@ public class GeneratorScreen implements Screen {
 	float Xtension;
 
 	public GeneratorScreen() {
+		time = 0;
+		progress = 0;
 		grid = new Coords[maze.cellsX][maze.cellsY];
 		for (int i = 0; i < maze.cellsX; i++)
 			for (int j = 0; j < maze.cellsX; j++)
@@ -45,6 +51,7 @@ public class GeneratorScreen implements Screen {
 		for (int i = 0; i < maze.cellsX; i++)
 			for (int j = 0; j < maze.cellsY; j++)
 				maze.tiles[0][i * 2 + 1][j * 2 + 1] = 0;
+		KumQuat.cache.clear();
 	}
 
 	public static void connectTiles() {
@@ -210,10 +217,10 @@ public class GeneratorScreen implements Screen {
 					cacheLayer(curlayer);
 					curlayer++;
 				}
-
+				completed = true;
 				brk = true;
 				CurGame.maze = maze;
-				KumQuat.game.setScreen(KumQuat.GMS);
+				
 			} else {
 				curCell = trace.get(trace.size() - 1);
 				trace.remove(trace.size() - 1);
@@ -233,6 +240,17 @@ public class GeneratorScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		if(completed){
+			time += delta;
+			if(brk && time>1) {
+				brk = false;
+				completed = false;
+			}
+			if(time > 3) {
+				KumQuat.game.setScreen(KumQuat.GMS);
+			}
+		}
+		else
 		for (int i = 0; i < 40; i++) {
 			tickGenerator();
 			if (brk) {
@@ -240,20 +258,25 @@ public class GeneratorScreen implements Screen {
 				break;
 			}
 		}
-
+		
 		// float leftGutter = KumQuat.viewport.getLeftGutterWidth();
-		Gdx.gl.glClearColor(0, 0, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		KumQuat.camera.update();
 		KumQuat.batch.setProjectionMatrix(KumQuat.camera.combined);
 		KumQuat.batch.begin();
-
-		for (int i = 0; i < 20; i++) {
-			if (progress > i * 5) {
-				KumQuat.batch.draw(Resources.getImage("interface/progressbar/progress5"), 50 + i * 35, 100);
+		KumQuat.mainFont.getData().setScale(2);
+		if(time < 1){
+			KumQuat.mainFont.setColor(1, 1, 1, (float) time);
+		} else {
+			if(time < 2) {
+				KumQuat.mainFont.setColor(1, 1, 1, 1);
+			} else {
+				
+				KumQuat.mainFont.setColor(1, 1, 1, (float) (3-time));
 			}
 		}
-		KumQuat.batch.draw(Resources.getImage("interface/progressbar/progressbarback"), 50, 100);
+		KumQuat.mainFont.draw(KumQuat.batch, "Level 1", WIDTH/2-3*30, HEIGHT/2);
 		KumQuat.batch.end();
 	}
 
@@ -288,5 +311,15 @@ public class GeneratorScreen implements Screen {
 	@Override
 	public void dispose() {
 
+	}
+
+	public static void reset() {
+		maze = new Maze();
+		progress = 0;
+		cellsProcessed = 0;
+		curCell = new Coords(0, 0);
+		brk = true;
+		completed = true;
+		time = 0;
 	}
 }

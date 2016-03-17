@@ -28,6 +28,8 @@ public class MainMenuScreen implements Screen {
 		KumQuat.batch.setProjectionMatrix(KumQuat.camera.combined);
 		if(buttons[0].justReleased){
 			KumQuat.game.setScreen(KumQuat.GS);
+			Resources.bitkeksDemo.play();
+			Resources.bitkeksDemo.setLooping(true);
 		}
 		KumQuat.batch.begin();
 		KumQuat.batch.draw(Resources.getImage("interface/background"), -350, 0);

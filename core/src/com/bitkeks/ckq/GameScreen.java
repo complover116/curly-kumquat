@@ -16,17 +16,22 @@ public class GameScreen implements Screen {
 	static float WIDTH;
 	static float HEIGHT;
 	static float Xtension;
-	
+	float UItime = 0;
 	float gameSpeed = 1;
 
 	// AndroidButton buttons[] = new AndroidButton[4];
 	public GameScreen() {
+		
 	}
 
 	@Override
 	public void render(float delta) {
 		float ingameDelta = delta;
 		ingameDelta *= gameSpeed;
+		if(UItime < 1) {
+			//KumQuat.camera.zoom += delta;
+			UItime += delta;
+		}
 		CurGame.gameTime += ingameDelta;
 		CurGame.tickEvents();
 		if (Gdx.app.getType() == Application.ApplicationType.Android)
@@ -96,8 +101,6 @@ public class GameScreen implements Screen {
 		KumQuat.UIbatch.begin();
 		if(CurGame.character.health>0)
 		KumQuat.UIbatch.draw(Resources.getImage("interface/hpBar"), WIDTH - 256 - Xtension, HEIGHT - 64);
-		else
-		KumQuat.UIbatch.draw(Resources.getImage("interface/ripscreen"), Xtension, HEIGHT/2 - 256);
 		
 		KumQuat.UIbatch.end();
 		
@@ -117,7 +120,34 @@ public class GameScreen implements Screen {
 		} else {
 			gameSpeed -= gameSpeed*delta;
 			KumQuat.camera.zoom += delta*0.25;
+			if(UItime < 2) {
+				Resources.bitkeksDemo.stop();
+				Resources.playSound("env/lose");
+				UItime = 2;
+			} else {
+				UItime += delta;
+			}
+		}
+		if(UItime < 1) {
 			
+			KumQuat.UIshapeRenderer.setColor(0,0,0,1-UItime);
+			KumQuat.UIshapeRenderer.rect(0-Xtension, 0, WIDTH, HEIGHT);
+		}
+		if(UItime > 5) {
+			
+			KumQuat.UIshapeRenderer.setColor(0,0,0,UItime-5);
+			KumQuat.UIshapeRenderer.rect(0-Xtension, 0, WIDTH, HEIGHT);
+			
+			//TEMP!!!
+			if(UItime > 6) {
+				CurGame.reset();
+				GeneratorScreen.reset();
+				KumQuat.GMS = new GameScreen();
+				KumQuat.GS = new GeneratorScreen();
+				KumQuat.game.setScreen(KumQuat.GS);
+				KumQuat.camera.zoom = 1;
+				Resources.bitkeksDemo.play();
+			}
 		}
 		KumQuat.UIshapeRenderer.end();
 		

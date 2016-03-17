@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteCache;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -26,6 +27,8 @@ public class KumQuat extends Game {
 	public static MainMenuScreen MMS;
 	public static GeneratorScreen GS;
 	public static GameScreen GMS;
+	
+	public static BitmapFont mainFont;
 	
 	@Override
 	public void create () {

@@ -3,8 +3,10 @@ package com.bitkeks.ckq;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -15,6 +17,8 @@ public class Resources {
 	public static HashMap<String, Integer> cachedIDs = new HashMap<String, Integer>();
 	public static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 	
+	public static Music bitkeksDemo;
+	
 	public static long fireSoundID;
 	
 	/*public static void loadVital() {
@@ -22,7 +26,8 @@ public class Resources {
 		textures.put("ERROR", new Texture(Gdx.files.internal("img/ERROR.png")));
 	}*/
 	public static void load() {
-
+		
+		KumQuat.mainFont = new BitmapFont(Gdx.files.internal("fonts/mainFont.fnt"));
 		Gdx.app.log("Resources", "Loading image list...");
 		String imglistRaw = Gdx.files.internal("ImageList").readString();
 
@@ -50,7 +55,7 @@ public class Resources {
 			}
 			i++;
 		}
-		
+		bitkeksDemo = Gdx.audio.newMusic(Gdx.files.internal("sound/music/BitKeks-demo.ogg"));
 		Gdx.app.log("Resources", "Loading sound list...");
 		
 		String soundlistRaw = Gdx.files.internal("SoundList").readString();

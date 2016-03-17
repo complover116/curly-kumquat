@@ -39,4 +39,11 @@ public class CurGame {
 			}
 		}
 	}
+
+	public static void reset() {
+		curLayer = 0;
+		gameTime = 0;
+		entities.clear();
+		character = new Character();
+	}
 }

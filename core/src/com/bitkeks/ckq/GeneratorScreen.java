@@ -213,7 +213,7 @@ public class GeneratorScreen implements Screen {
 					}
 					Gdx.app.log("Generator",
 							"Registered event " + eventnum + " at x:" + eventCellX + " y:" + eventCellY);
-
+					
 					cacheLayer(curlayer);
 					curlayer++;
 				}
@@ -248,6 +248,7 @@ public class GeneratorScreen implements Screen {
 			}
 			if(time > 3) {
 				KumQuat.game.setScreen(KumQuat.GMS);
+				Gdx.app.debug("Camera Position", KumQuat.camera.position.x+":"+KumQuat.camera.position.y);
 			}
 		}
 		else
@@ -276,7 +277,7 @@ public class GeneratorScreen implements Screen {
 				KumQuat.mainFont.setColor(1, 1, 1, (float) (3-time));
 			}
 		}
-		KumQuat.mainFont.draw(KumQuat.batch, "Level 1", WIDTH/2-3*30, HEIGHT/2);
+		KumQuat.mainFont.draw(KumQuat.batch, "Level 1", WIDTH/2-Xtension-3*30, HEIGHT/2);
 		KumQuat.batch.end();
 	}
 

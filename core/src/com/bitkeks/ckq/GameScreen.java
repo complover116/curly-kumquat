@@ -146,6 +146,8 @@ public class GameScreen implements Screen {
 				KumQuat.GS = new GeneratorScreen();
 				KumQuat.game.setScreen(KumQuat.GS);
 				KumQuat.camera.zoom = 1;
+				KumQuat.camera.position.y = 300;
+				KumQuat.camera.position.x = 400;
 				Resources.bitkeksDemo.play();
 			}
 		}

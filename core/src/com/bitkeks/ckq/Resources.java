@@ -90,6 +90,10 @@ public class Resources {
 		//FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_1_small", 32));
 		//FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_2_small", 32));
 		FObjectType.objects.add(new FObjectType(FObjectType.TYPE_METAL, "wreck/test_1_big", 128));
+		
+		FObjectType.woodenObjects.add(new FObjectType(FObjectType.TYPE_WOOD, "wreck/wood_1", 64));
+		FObjectType.woodenObjects.add(new FObjectType(FObjectType.TYPE_WOOD, "wreck/wood_1_small", 32));
+		FObjectType.woodenObjects.add(new FObjectType(FObjectType.TYPE_WOOD, "wreck/wood_2_small", 32));
 	}
 
 	public static TextureRegion getImage(String name) {

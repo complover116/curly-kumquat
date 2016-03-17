@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
 			UItime += delta;
 		}
 		CurGame.gameTime += ingameDelta;
-		CurGame.tickEvents();
+		CurGame.tickEvents(ingameDelta);
 		if (Gdx.app.getType() == Application.ApplicationType.Android)
 			Input.processInput();
 		else

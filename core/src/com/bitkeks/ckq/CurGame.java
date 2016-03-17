@@ -11,6 +11,8 @@ public class CurGame {
 	public static Character character = new Character();
 	static double gameTime = 0;
 
+	static double lastEvent = 0;
+	
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 
 	public static void tickEnts(double delta) {
@@ -20,10 +22,11 @@ public class CurGame {
 			} else 
 				entities.get(i).tick(delta);
 		}
-			
+		
+		
 	}
 
-	public static void tickEvents() {
+	public static void tickEvents(double delta) {
 		for (int i = 0; i < maze.events.size(); i++) {
 			if (maze.events.get(i).time < gameTime+3 && !maze.events.get(i).happened) {
 				entities.add(new FallingObject(maze.events.get(i).x-64 ,maze.events.get(i).y-64, 3, maze.events.get(i).object));
@@ -38,11 +41,21 @@ public class CurGame {
 				break;
 			}
 		}
+		
+		lastEvent += delta;
+		while(lastEvent > 1){
+		if(Math.random() < 0.5) {
+			entities.add(new FallingObject((int)(character.x - 500 + Math.random()*1000), (float) (character.y - 500 + Math.random()*1000), 3, FObjectType.woodenObjects.get((int)(Math.random()*FObjectType.woodenObjects.size()))));
+		}
+		lastEvent -= 1;
+		}
+		
 	}
 
 	public static void reset() {
 		curLayer = 0;
 		gameTime = 0;
+		lastEvent = 0;
 		entities.clear();
 		character = new Character();
 	}

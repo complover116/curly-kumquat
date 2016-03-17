@@ -1,7 +1,6 @@
 package com.bitkeks.ckq;
 
 import java.util.ArrayList;
-import com.badlogic.gdx.graphics.Color;
 
 import com.badlogic.gdx.Gdx;
 
@@ -45,7 +44,11 @@ public class CurGame {
 		lastEvent += delta;
 		while(lastEvent > 1){
 		if(Math.random() < 0.5) {
-			entities.add(new FallingObject((int)(character.x - 500 + Math.random()*1000), (float) (character.y - 500 + Math.random()*1000), 3, FObjectType.woodenObjects.get((int)(Math.random()*FObjectType.woodenObjects.size()))));
+			float x = (float)(character.x - 500 + Math.random()*1000);
+			float y = (float) (character.y - 500 + Math.random()*1000);
+			if(x > 32 && y>32 && x < maze.tiles.length*32 && y < maze.tiles[0].length*32)
+			entities.add(new FallingObject(x, y, 3, FObjectType.woodenObjects.get((int)(Math.random()*FObjectType.woodenObjects.size()))));
+			
 		}
 		lastEvent -= 1;
 		}

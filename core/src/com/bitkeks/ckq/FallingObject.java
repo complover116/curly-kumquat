@@ -37,8 +37,10 @@ public class FallingObject extends Entity {
 					Resources.sounds.get("env/crash1_distant").play(dist/2048, 1, pan);
 				}
 			}
-			
+			if(this.obj.type == FObjectType.TYPE_METAL)
 			CurGame.entities.add(new EntityFire(x+obj.radius, y+obj.radius, obj.radius*2, 15, true));
+			else
+			CurGame.entities.add(new EntityFire(x+obj.radius, y+obj.radius, obj.radius*2, 5, true));
 			//Gdx.app.log("Event", "Particle location:"+x0+":"+y0);
 			for(int dx = 0; dx < obj.radius/4; dx ++)
 				for(int dy = 0; dy < obj.radius/4; dy ++){

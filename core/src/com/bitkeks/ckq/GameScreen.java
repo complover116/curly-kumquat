@@ -128,12 +128,23 @@ public class GameScreen implements Screen {
 				UItime += delta;
 			}
 		}
+		if(CurGame.win){
+			CurGame.win = false;
+			Resources.bitkeksDemo.stop();
+			Resources.playSound("env/win");
+			UItime = 10;
+		}
+		if(UItime >= 10) {
+			UItime += delta;
+			gameSpeed -= gameSpeed*delta;
+			KumQuat.camera.zoom -= delta*0.25;
+		}
 		if(UItime < 1) {
 			
 			KumQuat.UIshapeRenderer.setColor(0,0,0,1-UItime);
 			KumQuat.UIshapeRenderer.rect(0-Xtension, 0, WIDTH, HEIGHT);
 		}
-		if(UItime > 5) {
+		if(UItime > 5 && UItime < 10) {
 			
 			KumQuat.UIshapeRenderer.setColor(0,0,0,UItime-5);
 			KumQuat.UIshapeRenderer.rect(0-Xtension, 0, WIDTH, HEIGHT);
@@ -144,6 +155,31 @@ public class GameScreen implements Screen {
 				GeneratorScreen.reset();
 				KumQuat.GMS = new GameScreen();
 				KumQuat.GS = new GeneratorScreen();
+				KumQuat.game.setScreen(KumQuat.GS);
+				KumQuat.camera.zoom = 1;
+				KumQuat.camera.position.y = 300;
+				KumQuat.camera.position.x = 400;
+				Resources.bitkeksDemo.play();
+			}
+		}
+		if(UItime > 12 && UItime < 20) {
+			
+			KumQuat.UIshapeRenderer.setColor(0,0,0,UItime-12);
+			KumQuat.UIshapeRenderer.rect(0-Xtension, 0, WIDTH, HEIGHT);
+			
+			//TEMP!!!
+			if(UItime > 13) {
+				CurGame.reset();
+				GeneratorScreen.reset();
+				GeneratorScreen.maze.cellsX = 10 + MetaGame.level*5;
+				GeneratorScreen.maze.cellsY = 10 + MetaGame.level*5;
+				GeneratorScreen.maze.eventnum = 5 + MetaGame.level*5;
+				GeneratorScreen.maze.layernum = 6 + MetaGame.level*5;
+				
+				KumQuat.GMS = new GameScreen();
+				KumQuat.GS = new GeneratorScreen();
+				MetaGame.level ++;
+				
 				KumQuat.game.setScreen(KumQuat.GS);
 				KumQuat.camera.zoom = 1;
 				KumQuat.camera.position.y = 300;

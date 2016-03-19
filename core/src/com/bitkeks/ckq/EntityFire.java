@@ -12,10 +12,10 @@ public class EntityFire extends Entity {
 	public void tick(double delta) {
 		lifetime -= delta;
 		particleSpawn += delta;
-		if(x>CurGame.character.x + GameScreen.WIDTH/2+radius) return;
-		if(x<CurGame.character.x - GameScreen.WIDTH/2-radius) return;
-		if(y>CurGame.character.y + GameScreen.HEIGHT/2+radius) return;
-		if(y<CurGame.character.y - GameScreen.HEIGHT/2-radius) return;
+		if(x>CurGame.character.x + GameScreen.WIDTH) return;
+		if(x<CurGame.character.x - GameScreen.WIDTH) return;
+		if(y>CurGame.character.y + GameScreen.HEIGHT) return;
+		if(y<CurGame.character.y - GameScreen.HEIGHT) return;
 		if(real && Math.sqrt((CurGame.character.x-x)*(CurGame.character.x-x) +(CurGame.character.y-y)*(CurGame.character.y-y))< radius) {
 			CurGame.character.health -= delta*50;
 		}

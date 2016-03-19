@@ -247,6 +247,9 @@ public class GeneratorScreen implements Screen {
 				completed = false;
 			}
 			if(time > 3) {
+				CurGame.entities.add(new EntityExit((int)(Math.random()*maze.cellsX)*2+1, (int)(Math.random()*maze.cellsY)*2+1));
+				
+				
 				KumQuat.game.setScreen(KumQuat.GMS);
 				Gdx.app.debug("Camera Position", KumQuat.camera.position.x+":"+KumQuat.camera.position.y);
 			}
@@ -277,7 +280,7 @@ public class GeneratorScreen implements Screen {
 				KumQuat.mainFont.setColor(1, 1, 1, (float) (3-time));
 			}
 		}
-		KumQuat.mainFont.draw(KumQuat.batch, "Level 1", WIDTH/2-Xtension-3*30, HEIGHT/2);
+		KumQuat.mainFont.draw(KumQuat.batch, "Level "+MetaGame.level, WIDTH/2-Xtension-3*30, HEIGHT/2);
 		KumQuat.batch.end();
 	}
 

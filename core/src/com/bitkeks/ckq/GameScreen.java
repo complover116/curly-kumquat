@@ -121,7 +121,7 @@ public class GameScreen implements Screen {
 			gameSpeed -= gameSpeed*delta;
 			KumQuat.camera.zoom += delta*0.25;
 			if(UItime < 2) {
-				Resources.bitkeksDemo.stop();
+				Resources.alpaMode1.stop();
 				Resources.playSound("env/lose");
 				UItime = 2;
 			} else {
@@ -155,10 +155,11 @@ public class GameScreen implements Screen {
 				GeneratorScreen.reset();
 				KumQuat.GMS = new GameScreen();
 				KumQuat.GS = new GeneratorScreen();
-				KumQuat.game.setScreen(KumQuat.GS);
+				KumQuat.game.setScreen(KumQuat.MMS);
 				KumQuat.camera.zoom = 1;
 				KumQuat.camera.position.y = 300;
 				KumQuat.camera.position.x = 400;
+				Resources.alpaMode1.stop();
 				Resources.bitkeksDemo.play();
 			}
 		}
@@ -184,7 +185,7 @@ public class GameScreen implements Screen {
 				KumQuat.camera.zoom = 1;
 				KumQuat.camera.position.y = 300;
 				KumQuat.camera.position.x = 400;
-				Resources.bitkeksDemo.play();
+				//Resources.bitkeksDemo.play();
 			}
 		}
 		KumQuat.UIshapeRenderer.end();

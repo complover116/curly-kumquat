@@ -25,9 +25,9 @@ public class Particle extends Entity {
 		if (size < 0) {
 			remove();
 		}
-		if(this.x < 0||this.y < 0 || this.x>CurGame.maze.tiles.length*32 || this.y>CurGame.maze.tiles[0].length*32) {
+		/*if(this.x < 0||this.y < 0 || this.x>CurGame.maze.tiles.length*32 || this.y>CurGame.maze.tiles[0].length*32) {
 			remove();
-		}
+		}*/
 	}
 
 	@Override

@@ -18,6 +18,7 @@ public class Resources {
 	public static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 	
 	public static Music bitkeksDemo;
+	public static Music alpaMode1;
 	
 	public static long fireSoundID;
 	
@@ -56,6 +57,7 @@ public class Resources {
 			i++;
 		}
 		bitkeksDemo = Gdx.audio.newMusic(Gdx.files.internal("sound/music/BitKeks-demo.ogg"));
+		alpaMode1 = Gdx.audio.newMusic(Gdx.files.internal("sound/music/alpamode1.ogg"));
 		Gdx.app.log("Resources", "Loading sound list...");
 		
 		String soundlistRaw = Gdx.files.internal("SoundList").readString();
@@ -76,6 +78,10 @@ public class Resources {
 			}
 		}
 		fireSoundID = sounds.get("env/fire_loud").loop();
+		alpaMode1.setLooping(true);
+		bitkeksDemo.setVolume(0.05f);
+		bitkeksDemo.setLooping(true);
+		bitkeksDemo.play();
 		sounds.get("env/fire").setVolume(fireSoundID,0);
 		try {
 			Thread.sleep(100);

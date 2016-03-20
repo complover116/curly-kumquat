@@ -280,6 +280,7 @@ public class GeneratorScreen implements Screen {
 				KumQuat.mainFont.setColor(1, 1, 1, (float) (3-time));
 			}
 		}
+		KumQuat.mainFont.getData().setScale(1f);
 		KumQuat.mainFont.draw(KumQuat.batch, "Level "+MetaGame.level, WIDTH/2-Xtension-3*30, HEIGHT/2);
 		KumQuat.batch.end();
 	}

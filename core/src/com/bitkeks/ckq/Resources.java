@@ -29,6 +29,7 @@ public class Resources {
 	public static void load() {
 		
 		KumQuat.mainFont = new BitmapFont(Gdx.files.internal("fonts/mainFont.fnt"));
+		
 		Gdx.app.log("Resources", "Loading image list...");
 		String imglistRaw = Gdx.files.internal("ImageList").readString();
 

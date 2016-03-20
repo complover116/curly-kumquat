@@ -6,8 +6,8 @@ public class Maze {
 	// Params
 	int eventnum = 5;
 	int eventsAtTime = 1;
-	int cellsX = 10;
-	int cellsY = 10;
+	int cellsX = 15;
+	int cellsY = 15;
 	int randomSeed = 1337;
 
 	// Finished maze fields

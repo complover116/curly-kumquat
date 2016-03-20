@@ -8,6 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Burning Maze";
+		config.width = 1200;
+		config.height = 675;
 		new LwjglApplication(new KumQuat(), config);
 	}
 }

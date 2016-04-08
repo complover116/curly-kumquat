@@ -12,19 +12,19 @@ public class Input {
 	
 	public static void processKeyInput() {
 		boolean flag = false;
-		if(Gdx.input.isKeyPressed(Keys.UP)) {
+		if(Gdx.input.isKeyPressed(Keys.W)) {
 			CurGame.character.goalTurn = 0;
 			flag = true;
 		}
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
+		if(Gdx.input.isKeyPressed(Keys.D)) {
 			CurGame.character.goalTurn = 90;
 			flag = true;
 		}
-		if(Gdx.input.isKeyPressed(Keys.DOWN)) {
+		if(Gdx.input.isKeyPressed(Keys.S)) {
 			CurGame.character.goalTurn = 180;
 			flag = true;
 		}
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
+		if(Gdx.input.isKeyPressed(Keys.A)) {
 			CurGame.character.goalTurn = 270;
 			flag = true;
 		}

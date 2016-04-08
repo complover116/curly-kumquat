@@ -88,14 +88,14 @@ public class GameScreen implements Screen {
 			CurGame.entities.get(i).draw();
 		
 		//DEBUG EVENT LOCATION
-		KumQuat.shapeRenderer.setColor(Color.RED);
+		/*KumQuat.shapeRenderer.setColor(Color.RED);
 		for(int i = 0; i < CurGame.maze.events.size(); i ++) {
 			Event event = CurGame.maze.events.get(i);
 			KumQuat.shapeRenderer.line(event.x-10, event.y, event.x+10, event.y);
 			KumQuat.shapeRenderer.line(event.x, event.y-10, event.x, event.y+10);
 		}
 		
-		KumQuat.shapeRenderer.end();
+		KumQuat.shapeRenderer.end();*/
 		
 		
 		KumQuat.UIbatch.begin();

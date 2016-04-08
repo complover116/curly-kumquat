@@ -94,8 +94,8 @@ public class GameScreen implements Screen {
 			KumQuat.shapeRenderer.line(event.x-10, event.y, event.x+10, event.y);
 			KumQuat.shapeRenderer.line(event.x, event.y-10, event.x, event.y+10);
 		}
-		
-		KumQuat.shapeRenderer.end();*/
+		*/
+		KumQuat.shapeRenderer.end();
 		
 		
 		KumQuat.UIbatch.begin();

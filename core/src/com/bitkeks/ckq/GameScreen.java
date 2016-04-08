@@ -119,10 +119,11 @@ public class GameScreen implements Screen {
 			KumQuat.UIshapeRenderer.rect(WIDTH - 256 - Xtension+9, HEIGHT - 48, 244*CurGame.character.health/100, 22);
 		} else {
 			gameSpeed -= gameSpeed*delta;
+			Resources.alpaMode1.setVolume(Resources.alpaMode1.getVolume()-0.1f);
 			KumQuat.camera.zoom += delta*0.25;
 			if(UItime < 2) {
-				Resources.alpaMode1.stop();
-				Resources.playSound("env/lose");
+				
+				//Resources.playSound("env/lose");
 				UItime = 2;
 			} else {
 				UItime += delta;

@@ -108,10 +108,10 @@ public class GameScreen implements Screen {
 		KumQuat.UIshapeRenderer.begin(ShapeType.Filled);
 		
 				
-		if (Gdx.app.getType() == ApplicationType.Android) {
-			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 0.5f);
+		if (/*Gdx.app.getType() == ApplicationType.Android*/true) {
+			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 0.3f);
 			KumQuat.UIshapeRenderer.circle(100, 150, 100);
-			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 1);
+			KumQuat.UIshapeRenderer.setColor(1, 1, 1, 0.6f);
 			KumQuat.UIshapeRenderer.circle(100 + Input.joyX, 150 + Input.joyY, 40);
 		}
 		if(CurGame.character.health>0){

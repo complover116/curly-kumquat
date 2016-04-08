@@ -247,7 +247,7 @@ public class GeneratorScreen implements Screen {
 				completed = false;
 			}
 			if(time > 3) {
-				CurGame.entities.add(new EntityExit((int)(Math.random()*maze.cellsX)*2+1, (int)(Math.random()*maze.cellsY)*2+1));
+				CurGame.entities.add(new EntityExit((int)(Math.random()*maze.cellsX/2+maze.cellsX/2)*2+1, (int)(Math.random()*maze.cellsY/2+maze.cellsY/2)*2+1));
 				
 				
 				KumQuat.game.setScreen(KumQuat.GMS);
